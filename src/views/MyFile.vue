@@ -1,5 +1,5 @@
 <script setup>
-import {ref,onMounted, watchEffect} from 'vue'
+import { ref, onMounted, watchEffect } from 'vue'
 import fileService from '@/services/file.service';
 import store from '@/store/store';
 
@@ -11,17 +11,15 @@ const files = ref([])
 const totalPage = ref(1)
 const currentPage = ref(1)
 const searchText = ref('')
-const selectIndex = ref(-1)
-function logout(){
+function logout() {
     store.commit('logout')
 }
-function getText(text)
-{
+function getText(text) {
     searchText.value = text
 }
 async function onSearch(page) {
     try {
-        const data = await fileService.getFiles(page,searchText.value)
+        const data = await fileService.getFiles(page, searchText.value)
         totalPage.value = data.metadata.lastPage ?? 1;
         files.value = data.files.sort((current, next) => current.title.localeCompare(next.title))
         // console.log(files,totalPage)
@@ -31,52 +29,49 @@ async function onSearch(page) {
     }
     console.log(searchText.value)
 }
-async function fetchImage(){
-    const baseURL = 'http://localhost:3000'
-    console.log(await fetch(`${baseURL}/thumbnail.png`))
-}
-
 onMounted(() => {
     onSearch(1)
 })
 watchEffect(() => onSearch(currentPage.value))
 </script>
 <template>
-    <AppHeader @search:text="getText" class="" @logout:user="logout"/>
-    <div class="container" v-if="files.length > 0" >
-        <FileItem :files="files" :selectIndex="selectIndex"/>
+    <AppHeader @search:text="getText" class="" @logout:user="logout" />
+    <div class="container" v-if="files.length > 0">
+        <FileItem :files="files" />
         <!-- <p>store:{{ store.state.user }}</p> -->
         <!-- <p v-if="store.state.user">{{ store.state.user }}</p> -->
-        <PaginationNav :totalPage="totalPage" v-model:currentPage="currentPage"/>
+        <PaginationNav :totalPage="totalPage" v-model:currentPage="currentPage" />
     </div>
-    <button @click="fetchImage">Fetch</button>
-    <AppFooter class="footer"/>
-    
+    <AppFooter class="footer" />
 </template>
 
 <style>
-.body{
+.body {
     min-width: 900px;
     position: relative;
 }
-.header{
+
+.header {
     position: fixed;
-    top:0;
+    top: 0;
     z-index: 1;
 }
-.footer{
+
+.footer {
     position: fixed;
-    bottom:0
+    bottom: 0
 }
-.container{
-    padding:100px 0; 
+
+.container {
+    padding: 100px 0;
 }
-.content{
+
+.content {
     width: 80%;
 }
-.sidebar{
+
+.sidebar {
     border: 2px black solid;
     height: 600px;
-    width:20%;
-}
-</style>
+    width: 20%;
+}</style>

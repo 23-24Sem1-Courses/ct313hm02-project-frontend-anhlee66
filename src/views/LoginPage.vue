@@ -15,14 +15,16 @@ async function login(user){
     try{
         // console.log(JSON.stringify(user))
         const res = await userService.login(user)
-        if(res.status == 301) console.log('Cannot Log in');
-        else{
-            store.commit('login', user.email)
-            console.log(localStorage.getItem('email'))
-
+        if(res.status == 301) {
+            console.log('Cannot Log in');
+            store.commit('loginFailure')
         }
-        $router.push({name:'homepage'})
-    }
+        else{
+            store.commit('loginSuccess', user.email)
+            console.log(localStorage.getItem('user'))
+            $router.push({name:'homepage'})
+        }
+    }  
     catch(error)
     {
         console.log(error)
@@ -33,14 +35,16 @@ async function login(user){
 
 <template>
     <div class="content">
-        <h1>Login Form</h1>
+        <h2 class="text-center">Welcome to Doc Sharing</h2>
         <UserForm @login:user="login" :user="user" type="login" />
-        <p>
-            <a href="/signup">Or Sign Up</a>
+        <p class="text-center ">
+            <a href="/signup">Sign up if you don't have Account</a>
         </p>
     </div>
 </template>
 
 <style>
-
+.content{
+    margin-top: 50px;
+}
 </style>

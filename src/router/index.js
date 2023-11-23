@@ -4,6 +4,7 @@ import LoginPage from '@/views/LoginPage.vue'
 import SignupPage from '@/views/SignupPage.vue'
 import UploadPage from '@/views/UploadPage.vue'
 import CreateCourse from '@/views/CreateCourse.vue'
+import MyFile from '@/views/MyFile.vue'
 const routes = [
   {
     path: '/',
@@ -29,6 +30,16 @@ const routes = [
     path: '/course',
     name: 'course',
     component: CreateCourse
+  },
+  {
+    path: '/myfile',
+    name: 'myfile',
+    component: MyFile
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'notfound',
+    component: () => import('@/views/NotFound.vue')
   }
 ]
 

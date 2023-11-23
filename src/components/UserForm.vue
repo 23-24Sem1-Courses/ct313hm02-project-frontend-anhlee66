@@ -31,7 +31,7 @@ function submitUser(){
 </script>
 
 <template>
-    <div class="content">
+    <div class="main">
         <Form @submit="submitUser" :validation-schema="FormSchema" class="content" >
             <div class="form-group">
                 <label for="email">Email address</label>
@@ -58,9 +58,18 @@ function submitUser(){
 </template>
 
 <style>
-.content{
-    margin: auto;
+body{
+  
+}
+.main{
+    margin:30px auto;
+    padding: 10px;
     max-width: 500px;
     max-height: 500px;
+    border: 1px rgba(101, 101, 240,0.5) solid;
+    border-radius: 10px;
+    display: flex;
+    /* flex-direction: row; */
+    justify-content: center     ;
 }
 </style>

@@ -1,53 +1,43 @@
 <script setup>
 import {ref} from 'vue'
 import store from '@/store/store';
-const $emit = defineEmits(['search:text'])
+import { Form } from 'vee-validate';
+const $emit = defineEmits(['search:text','logout:user'])
 const searchText = ref('')
 
 const avt = ref('./src/assets/avatar/guest.png')
 console.log(avt.value)
-function filterSearch(e){
-    searchText.value = e.target.value
+function search(){
     $emit('search:text',searchText.value)
 }
 </script>
 
 <template>
-    <nav class="navbar navbar-expand navbar-dark bg-dark" >
+    <nav class="navbar navbar-expand navbar-dark bg-dark header" >
         <a href="/" class="navbar-brand h1 ">
             <i class="fa-regular fa-folder-open fa-2xl"></i>
             DocSharing</a>
         
-        <div class="ml-5 navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link">Documents</a>
-            </li>
-        </div>
-        <div class="ml-5 navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link">About</a>
-            </li></div>
-        <div class="ml-5 navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" href="/login">Login</a>
-            </li>
-        </div>
-        <!-- <div>text:{{ searchText }}</div> -->
-        <div  class="ml-auto navbar-nav  form-control search-group">
-            <input type="text" class="search" placeholder="Search doc" :value="searchText" @input="filterSearch">
-            <!-- <select class="search-option mr-0" :value="">
-                <option value="title">Title</option>
-                <option value="course">Course</option>
-            </select> -->
-        </div>
-        <div class="navbar ml-auto text-white">
-            <i class="fa-solid fa-bell fa-xl"></i>
-        </div>
-        <div class="navbar mr-5 text-white dropdown" >
+        <div class="ml-3 navbar-nav  ">
            
-          
+                <router-link class="text-white" to="/">Home</router-link>
+           
         </div>
-        <div class="dropdown">
+        <div class="ml-3 navbar-nav  ">
+           <router-link class="text-white" to="/myfile">My&nbsp;File</router-link>
+        </div>
+        <div class="ml-3 navbar-nav mr-5 ">
+               <router-link class="text-white" to="/about">About</router-link>
+        </div>
+        <div  class="ml-auto mr-5 navbar-nav  form-control search-group">
+            <Form @submit="search">
+                <input type="text" class="search" placeholder="Search for courses, books or documents" v-model="searchText"  >
+            </Form>
+        </div>
+        <!-- <div class="navbar ml-auto">
+            <i class="fa-solid fa-bell fa-xl"></i>
+        </div> -->
+        <div class="dropdown ml-auto" v-if="store.state.status.isLoggedIn">
           <button class="btn btn-secondary bg-transparent border-0 dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"    >
              <span>
                     <i class="fa-solid fa-bars fa-xl mr-2"></i>
@@ -56,19 +46,32 @@ function filterSearch(e){
           </button>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
             <a class="dropdown-item" href="#">Account Setting</a>
-            <a class="dropdown-item" href="#">File upload</a>
-            <a class="dropdown-item" href="#">{{ store.state.email==null?'Login':'Logout' }}</a>
+            <a class="dropdown-item" href="/file/upload">File upload</a>
+            <a class="dropdown-item" href="#"  @click="$emit('logout:user')">Log out</a>
           </div>
         </div>
-       
-        
+        <div v-else class="ml-auto">
+            <button class="btn btn-primary">
+                <a href="/login" class="text-white">Login</a>
+            </button>
+        </div>
     </nav>
     
 </template>
 
 <style>
+.header{
+    width: 100%;
+    position: fixed;
+    top:0;
+}
+a.router-link-active{
+    color: white;
+}
+    
+
 .search-group{
-    min-width: 300px;
+    max-width: 600px;
     /* border-right:0 ; */
     padding: auto;
     margin: 0;
@@ -77,12 +80,21 @@ function filterSearch(e){
     justify-content: space-between;
     position: relative;
 }
+@media screen and (max-width: 1000px){
+.search-group{
+    max-width: 200px;
+}
+.search{
+    max-width: 100px;
+}
+};
 .search{
     position: absolute;
     border: 0;
     padding: 0;
     margin: 0;
     left: 5px;
+    max-width: 600px;
 }
 .search:focus{
     border:none;

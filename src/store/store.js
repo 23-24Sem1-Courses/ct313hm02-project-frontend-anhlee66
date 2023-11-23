@@ -1,28 +1,43 @@
 import { createStore } from 'vuex'
+import { useRouter } from 'vue-router'
 
-export default createStore({
-  state: {
-    email: null
+const $router = useRouter()
+const user = localStorage.getItem('user')
+const state = user ? { status: { isLoggedIn: true }, user } : { status: {}, user: null }
+const mutations = {
+  loginSuccess(state, user) {
+    state.user = user
+    state.status = { isLoggedIn: true }
+    localStorage.setItem('user', user)
+    alert(`Logged in ${user}`)
   },
-  getters: {},
-  mutations: {
-    login(state, email) {
-      state.email = email
-      localStorage.setItem('email', email)
-      alert(`Logged in ${email}`)
-    },
-    logout(state) {
-      const email = state.email
-      state.email = null
-      localStorage.removeItem('email')
-      alert(`Logged out ${email}`)
-    },
-    initStore(state) {
-      if (localStorage.getItem('email')) {
-        state.email = localStorage.getItem('email')
-      }
+  loginFailure(state) {
+    state.user = null
+    state.status = {}
+  },
+  logout(state) {
+    if (state.status.isLoggedIn) {
+      const user = state.user
+      state.user = null
+      state.status = {}
+      localStorage.removeItem('user')
+      alert(`Logged out ${user}`)
     }
   },
+  registerSuccess(state, user) {
+    state.user = user
+    state.status = { isRegister: true }
+    $router.push({ name: 'loginpage' })
+  },
+  registerFailure(state) {
+    state.user = null
+    state.status = {}
+  }
+}
+export default createStore({
+  state,
+  mutations,
+  getters: {},
   actions: {},
   modules: {}
 })

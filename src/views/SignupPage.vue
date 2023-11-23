@@ -33,7 +33,7 @@ async function signup(user){
 </script>
 <template>
     <div class="content">
-        <h1>SignUp Page</h1>
+        <h2 class="text-center">Welcome to Doc Sharing</h2>
         <UserForm @signup:user="signup" :user="user" type="signup" />
     </div>
 </template>

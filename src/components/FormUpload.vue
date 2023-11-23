@@ -19,14 +19,9 @@ async function getAllCourse(){
 }
 
 function submitFile(){
-    // console.log(file)
-    $emit('submitUpload:file',file.value.fileUpload)
+    $emit('submitUpload:file',file.value)
 }
 
-// function isLoadFile(){
-//     if(file.value.fileUpload) return true
-//     return false
-// }
 onMounted(()=>getAllCourse())
 </script>
 

@@ -1,21 +1,12 @@
 <script setup>
 // eslint-disable-next-line no-unused-vars
-import { store } from '@/main';
+// import { store } from '@/main';
 
-// function Calculate(){
-//   store.commit('increment')
-//   return store.state.count
-// }
 
 </script>
 
 <template>
-  <div class="">
-    <RouterView />
-    <!-- <h2>{{ store.state.count}}</h2>
-    <button @click="Calculate">count</button> -->
-  </div>
-
+  <RouterView />
 </template>
 
 <style scoped>
