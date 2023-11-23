@@ -1,3 +1,5 @@
+import store from '@/store/store'
+
 function makeUserService() {
   const baseURL = '/api'
   const headers = {
@@ -12,7 +14,7 @@ function makeUserService() {
       body: JSON.stringify(user)
     }
     const res = await fetch(url, options)
-    console.log(res)
+    // console.log(res)
     return res
   }
 
@@ -26,10 +28,14 @@ function makeUserService() {
     })
     return res
   }
+  function isAuthenticated() {
+    return store.state.user ? true : false
+  }
   async function getUserInfo(user) {
     let url = `${baseURL}/user?email=${user}`
     return await fetch(url)
   }
+
   async function updateUser(user) {
     let url = `${baseURL}/user/${user.userID}`
     const res = await fetch(url, {
@@ -45,7 +51,8 @@ function makeUserService() {
     login,
     signup,
     getUserInfo,
-    updateUser
+    updateUser,
+    isAuthenticated
   }
 }
 export default makeUserService()

@@ -1,6 +1,7 @@
 <script setup>
 import {ref,onMounted, watchEffect, watch} from 'vue'
 import fileService from '@/services/file.service';
+import userService from '@/services/user.service'
 import store from '@/store/store';
 
 import AppHeader from '@/components/AppHeader.vue'
@@ -15,9 +16,11 @@ const selectIndex = ref(-1)
 function logout(){
     store.commit('logout')
 }
-function getText(text)
+function onUpdateSearchText(text)
 {
     searchText.value = text
+    console.log(searchText.value)
+    // onSearch(1)
 }
 async function onSearch(page) {
     try {
@@ -25,7 +28,7 @@ async function onSearch(page) {
         totalPage.value = data.metadata.lastPage ?? 1;
         files.value = data.files.sort((current, next) => current.title.localeCompare(next.title))
         selectIndex.value = -1
-        // console.log(files,totalPage)
+        // console.log(files,)
     }
     catch (error) {
         console.log(error)
@@ -35,6 +38,7 @@ async function onSearch(page) {
 //     const baseURL = 'api'
 //     console.log(await fetch(`${baseURL}/file/49`))
 // }
+console.log('authur',userService.isAuthenticated())
 function updateIndex(index){
     selectIndex.value = index
     // console.log(index)
@@ -47,14 +51,14 @@ watch(selectIndex,()=> console.log(selectIndex.value,searchText.value))
 watchEffect(() => onSearch(currentPage.value))
 </script>
 <template>
-    <AppHeader @search:text="text =>{searchText=text}" class="" @logout:user="logout"/>
-    <p>{{ searchText }}</p>
+    <AppHeader @update:searchText="onUpdateSearchText" class="" @logout:user="logout"/>
+    <!-- <p>{{ searchText }}</p> -->
     <div class="container justify-content-center " v-if="files.length > 0" >
         <FileItem :files="files" @update:index="updateIndex" :selectIndex="selectIndex"/>
         <!-- <p>store:{{ store.state.user }}</p> -->
         <!-- <p v-if="store.state.user">{{ store.state.user }}</p> -->
         <PaginationNav :totalPage="totalPage" v-model:currentPage="currentPage"/>
-<p>{{ files }}</p>
+<!-- <p>{{ files }}</p> -->
     </div>
     <!-- <button @click="fetchImage">Fetch</button> -->
 

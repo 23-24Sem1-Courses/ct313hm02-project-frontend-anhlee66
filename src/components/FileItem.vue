@@ -1,13 +1,13 @@
 <script setup>
 // import store from '@/store/store';
-import {ref} from 'vue'
+// import {ref} from 'vue'
 import fileService from '@/services/file.service';
-const props = defineProps({
+defineProps({
     files:{type:Array, default: () =>[]},
     selectIndex:{type:Number, default:-1},
     isOwner:{type:Boolean,default:false}
 })
-const files = ref(props.files)
+// const files = ref(props.files)
 // console.log(files)
 const $emit = defineEmits(['update:index'])
 
@@ -40,7 +40,7 @@ function onEditFile(){
             <p class="file-title">{{ file.title }}</p>
             <p class="file-course">{{ file.courseName }}</p>
             <p class="file-author">{{ file.fullName }}</p>
-            <div class="control pr-lg-4 pl-lg-4" v-if="isOwner">
+            <div class="control pr-lg-3 pl-lg-3" v-if="isOwner">
                 <button class="btn btn-primary float-left" @click="onEditFile(file.fileID)">Edit</button>
                 <button class="btn btn-danger float-right" @click="onDeleteFile(file.fileID)">Delete</button>
             </div>
@@ -56,7 +56,7 @@ function onEditFile(){
 }
 .file-item{
     height: 500px;
-    width: 250px;
+    width: 200px;
     border-radius: 10px;
     border: 2px rgb(191, 181, 181) solid;
     display: flex;

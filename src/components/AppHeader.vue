@@ -2,13 +2,20 @@
 import {ref} from 'vue'
 import store from '@/store/store';
 import { Form } from 'vee-validate';
-const $emit = defineEmits(['search:text','logout:user'])
+// const props = defineProps({
+//     searchText:{type:String,default:''}
+// })
+const $emit = defineEmits(['update:searchText','logout:user'])
 const searchText = ref('')
 
 const avt = ref('./src/assets/avatar/guest.png')
-console.log(avt.value)
-function search(){
-    $emit('search:text',searchText.value)
+// console.log(avt.value)
+// function search(){
+//     $emit('search:text',searchText.value)
+// }
+function onUpdateSearchText(){
+    $emit('update:searchText', searchText.value)
+    console.log(searchText.value)
 }
 </script>
 
@@ -24,13 +31,13 @@ function search(){
            
         </div>
         <div class="ml-3 navbar-nav  ">
-           <router-link class="text-white" to="/myfile">My&nbsp;File</router-link>
+           <router-link class="text-white" to="/myfile" v-if="store.state.status.isLoggedIn">My&nbsp;File</router-link>
         </div>
         <div class="ml-3 navbar-nav mr-5 ">
                <router-link class="text-white" to="/file">About</router-link>
         </div>
         <div  class="ml-auto mr-5 navbar-nav  form-control search-group">
-            <Form @submit="search">
+            <Form @submit="onUpdateSearchText">
                 <input type="text" class="search" placeholder="Search for courses, books or documents" v-model="searchText"  >
             </Form>
         </div>

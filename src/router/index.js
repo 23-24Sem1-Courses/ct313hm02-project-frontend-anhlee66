@@ -1,4 +1,5 @@
 import { createWebHistory, createRouter } from 'vue-router'
+// import userService from '@/services/user.service'
 import HomePage from '@/views/HomePage.vue'
 import LoginPage from '@/views/LoginPage.vue'
 import SignupPage from '@/views/SignupPage.vue'
@@ -59,5 +60,10 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes
 })
+// router.beforeEach((to, from, next) => {
+//   const isAuthenticated = userService.isAuthenticated()
+//   if (to.name !== 'Login' && !isAuthenticated) next({ name: 'loginpage' })
+//   else next()
+// })
 
 export default router
