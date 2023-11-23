@@ -11,6 +11,7 @@ const files = ref([])
 const totalPage = ref(1)
 const currentPage = ref(1)
 const searchText = ref('')
+const email = ref(store.state.user)
 function logout() {
     store.commit('logout')
 }
@@ -19,7 +20,7 @@ function getText(text) {
 }
 async function onSearch(page) {
     try {
-        const data = await fileService.getFiles(page, searchText.value)
+        const data = await fileService.getFilesByEmail(page, email.value)
         totalPage.value = data.metadata.lastPage ?? 1;
         files.value = data.files.sort((current, next) => current.title.localeCompare(next.title))
         // console.log(files,totalPage)
@@ -37,7 +38,8 @@ watchEffect(() => onSearch(currentPage.value))
 <template>
     <AppHeader @search:text="getText" class="" @logout:user="logout" />
     <div class="container" v-if="files.length > 0">
-        <FileItem :files="files" />
+        <h2 class="text-center mt-lg-13">My upload file</h2>
+        <FileItem v-model:files="files" :isOwner="true" />
         <!-- <p>store:{{ store.state.user }}</p> -->
         <!-- <p v-if="store.state.user">{{ store.state.user }}</p> -->
         <PaginationNav :totalPage="totalPage" v-model:currentPage="currentPage" />

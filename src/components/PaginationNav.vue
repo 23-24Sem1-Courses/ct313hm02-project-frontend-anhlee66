@@ -39,7 +39,7 @@ const pages = computed(() => {
 })
 </script>
 <template>
-	<nav>
+	<nav class="pagination">
 		<ul class="pagination">
 			<li class="page-item" :class="{ disabled: currentPage == 1 }">
 				<a role="button" class="page-link" @click="$emit('update:currentPage', currentPage - 1)">
@@ -59,3 +59,9 @@ const pages = computed(() => {
 		</ul>
 	</nav>
 </template>
+<style>
+.pagination{
+	display: flex;
+	justify-content: center;
+}
+</style>

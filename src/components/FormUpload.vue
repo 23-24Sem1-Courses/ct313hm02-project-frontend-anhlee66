@@ -51,7 +51,11 @@ onMounted(()=>getAllCourse())
                 </p>
                 <ErrorMessage name="file" class="error-feedback text-danger"/>
             </div>
-            
+            <div class="form-group btn btn-secondary float-left rounded-pill">
+                <a href="/" class="text-white">
+                    <i class="fa-solid fa-left-long" ></i>
+                    Go Back</a>
+            </div>
             <div class="form-group">
                 <button class="btn btn-primary float-right rounded-pill" :disabled="!file.fileUpload">
                     <i class="fa-solid fa-right-long"></i>
@@ -59,7 +63,7 @@ onMounted(()=>getAllCourse())
                 </button>
             </div>
         </Form>
-        <p v-if="file.fileUpload">Select {{ file  }} </p>
+        <!-- <p v-if="file.fileUpload">Select {{ file  }} </p> -->
 </div>
 </template>
 

@@ -27,7 +27,7 @@ function search(){
            <router-link class="text-white" to="/myfile">My&nbsp;File</router-link>
         </div>
         <div class="ml-3 navbar-nav mr-5 ">
-               <router-link class="text-white" to="/about">About</router-link>
+               <router-link class="text-white" to="/file">About</router-link>
         </div>
         <div  class="ml-auto mr-5 navbar-nav  form-control search-group">
             <Form @submit="search">
@@ -45,7 +45,7 @@ function search(){
             </span>
           </button>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" href="#">Account Setting</a>
+            <a class="dropdown-item" href="/setting">Account Setting</a>
             <a class="dropdown-item" href="/file/upload">File upload</a>
             <a class="dropdown-item" href="#"  @click="$emit('logout:user')">Log out</a>
           </div>

@@ -5,6 +5,8 @@ import SignupPage from '@/views/SignupPage.vue'
 import UploadPage from '@/views/UploadPage.vue'
 import CreateCourse from '@/views/CreateCourse.vue'
 import MyFile from '@/views/MyFile.vue'
+import AccountSetting from '@/views/AccountSetting.vue'
+import FileView from '@/views/FileView.vue'
 const routes = [
   {
     path: '/',
@@ -40,6 +42,16 @@ const routes = [
     path: '/:pathMatch(.*)*',
     name: 'notfound',
     component: () => import('@/views/NotFound.vue')
+  },
+  {
+    path: '/setting',
+    name: 'setting',
+    component: AccountSetting
+  },
+  {
+    path: '/file',
+    name: 'fileview',
+    component: FileView
   }
 ]
 

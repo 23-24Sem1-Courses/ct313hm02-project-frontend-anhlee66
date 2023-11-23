@@ -1,5 +1,5 @@
 <script setup>
-import {ref,onMounted, watchEffect} from 'vue'
+import {ref,onMounted, watchEffect, watch} from 'vue'
 import fileService from '@/services/file.service';
 import store from '@/store/store';
 
@@ -24,32 +24,40 @@ async function onSearch(page) {
         const data = await fileService.getFiles(page,searchText.value)
         totalPage.value = data.metadata.lastPage ?? 1;
         files.value = data.files.sort((current, next) => current.title.localeCompare(next.title))
+        selectIndex.value = -1
         // console.log(files,totalPage)
     }
     catch (error) {
         console.log(error)
     }
-    console.log(searchText.value)
 }
-async function fetchImage(){
-    const baseURL = 'http://localhost:3000'
-    console.log(await fetch(`${baseURL}/thumbnail.png`))
+// async function fetchImage(){
+//     const baseURL = 'api'
+//     console.log(await fetch(`${baseURL}/file/49`))
+// }
+function updateIndex(index){
+    selectIndex.value = index
+    // console.log(index)
 }
-
 onMounted(() => {
     onSearch(1)
 })
+// watch(searchText,() => onSearch(1))
+watch(selectIndex,()=> console.log(selectIndex.value,searchText.value))
 watchEffect(() => onSearch(currentPage.value))
 </script>
 <template>
-    <AppHeader @search:text="getText" class="" @logout:user="logout"/>
-    <div class="container" v-if="files.length > 0" >
-        <FileItem :files="files" :selectIndex="selectIndex"/>
+    <AppHeader @search:text="text =>{searchText=text}" class="" @logout:user="logout"/>
+    <p>{{ searchText }}</p>
+    <div class="container justify-content-center " v-if="files.length > 0" >
+        <FileItem :files="files" @update:index="updateIndex" :selectIndex="selectIndex"/>
         <!-- <p>store:{{ store.state.user }}</p> -->
         <!-- <p v-if="store.state.user">{{ store.state.user }}</p> -->
         <PaginationNav :totalPage="totalPage" v-model:currentPage="currentPage"/>
+<p>{{ files }}</p>
     </div>
-    <button @click="fetchImage">Fetch</button>
+    <!-- <button @click="fetchImage">Fetch</button> -->
+
     <AppFooter class="footer"/>
     
 </template>

@@ -26,10 +26,26 @@ function makeUserService() {
     })
     return res
   }
+  async function getUserInfo(user) {
+    let url = `${baseURL}/user?email=${user}`
+    return await fetch(url)
+  }
+  async function updateUser(user) {
+    let url = `${baseURL}/user/${user.userID}`
+    const res = await fetch(url, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(user)
+    })
+    // console.log(res)
+    return res.json()
+  }
 
   return {
     login,
-    signup
+    signup,
+    getUserInfo,
+    updateUser
   }
 }
 export default makeUserService()

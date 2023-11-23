@@ -35,21 +35,27 @@ function makeFileService() {
       .catch((err) => console.log(err))
   }
 
-  async function getFiles(page, search, limit = 4) {
+  async function getFiles(page, search, limit = 5) {
     const url = `${baseURL}/file/?page=${page}&limit=${limit}&search=${search}`
     return await fetch(url).then((res) => res.json())
   }
 
-  async function getFileByEmail(email) {
-    const url = `${baseURL}/file/?email=${email}`
+  async function getFilesByEmail(page, email) {
+    const url = `${baseURL}/file/?page=${page}&email=${email}`
     return await fetch(url).then((res) => res.json())
+  }
+
+  async function deleteFile(id) {
+    const url = `${baseURL}/file/${id}`
+    return await fetch(url, { method: 'DELETE' }).then((res) => res.json())
   }
 
   return {
     getFileById,
     getFiles,
     uploadFile,
-    getFileByEmail
+    getFilesByEmail,
+    deleteFile
   }
 }
 export default makeFileService()
