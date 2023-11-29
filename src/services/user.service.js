@@ -14,7 +14,7 @@ function makeUserService() {
       body: JSON.stringify(user)
     }
     const res = await fetch(url, options)
-    // console.log(res)
+    // console.git log(res)
     return res
   }
 
@@ -33,18 +33,25 @@ function makeUserService() {
   }
   async function getUserInfo(user) {
     let url = `${baseURL}/user?email=${user}`
-    return await fetch(url)
+    return await fetch(url).then((res) => res.json())
   }
 
   async function updateUser(user) {
     let url = `${baseURL}/user/${user.userID}`
-    const res = await fetch(url, {
-      method: 'POST',
-      headers,
-      body: JSON.stringify(user)
-    })
-    // console.log(res)
-    return res.json()
+    const formData = new FormData()
+    const fullName = user.fullName
+    const birthday = user.birthday
+    const organization = user.organization
+
+    console.log(user)
+    formData.append('fullName', fullName)
+    formData.append('birthday', birthday)
+    formData.append('profilePicture', user.profilePicture)
+    formData.append('organization', organization)
+
+    return await fetch(url, { method: 'POST', body: formData })
+      .then((res) => res.json())
+      .catch((err) => console.log(err))
   }
 
   return {

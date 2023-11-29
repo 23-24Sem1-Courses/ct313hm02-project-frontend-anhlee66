@@ -49,7 +49,11 @@ function submitUser(){
                 <ErrorMessage name="password" class="error-feedback text-danger" />
             </div>
             <div class="form-group ">
-                <button class="btn btn-primary justify-content-center"  v-if="type === 'signup'">Sign Up</button>
+                <div class="" v-if="type === 'signup'">
+                    <button class="btn btn-primary justify-content-center" >Sign Up</button>
+                    <router-link class="" to="/login">Try to login</router-link>
+                </div>
+                
                 <button class="btn btn-primary  justify-content-center"  v-else >Login</button>
             </div>
         </Form>

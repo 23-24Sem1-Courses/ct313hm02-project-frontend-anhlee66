@@ -39,7 +39,7 @@ async function submitFile(file){
 <style lang="scss">
 .contain{
     max-width: 900px;
-    min-height: 600px;
+    min-height: 450px;
     margin: 0 auto;
     justify-content: center;
     align-items: center;
@@ -50,7 +50,7 @@ async function submitFile(file){
 .upload-header{
     text-align: center;
     height: 100px;
-    padding: 30px;
+    padding: 10px;
     background-color: rgb(199, 195, 195);
 }
 .form-upload{

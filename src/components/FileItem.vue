@@ -1,7 +1,10 @@
 <script setup>
 // import store from '@/store/store';
 // import {ref} from 'vue'
+// import router from '@/router';
 import fileService from '@/services/file.service';
+import VuePdfEmbed from 'vue-pdf-embed'
+import { useRouter } from 'vue-router';
 defineProps({
     files:{type:Array, default: () =>[]},
     selectIndex:{type:Number, default:-1},
@@ -10,11 +13,12 @@ defineProps({
 // const files = ref(props.files)
 // console.log(files)
 const $emit = defineEmits(['update:index'])
-
+const $router = useRouter()
 function updateIndex(index)
 {
     $emit('update:index', index)
     // console.log(index)
+    // $router.push({name:'fileview'})
 }
 // function isOwner(email){
 //     return email === store.state.user? true:false
@@ -24,28 +28,33 @@ async function onDeleteFile(id){
     if(confirmation){
         const res = await fileService.deleteFile(id)
         if(res){
-        alert(res.message)}
+        alert(res.message)
+        $router.go(0)
+    }
     }
 }
 
-function onEditFile(){
 
-}
 </script>
 <template>
     <!-- <p>{{ files }}</p> -->
-    <div class="list-group">
-        <li class="list-group-item file-item " v-for="(file, index) in files" :key="file.fileID" @click="updateIndex(index)" :class="{ actived: selectIndex===index}">
-            <img class="file-thumbnail" src="/src/assets/thumbnail.png" alt="thumbnail" height="100" width="100">
+    <div class="list-group" >
+        <router-link :to="`/fileview/${file.fileID}`" class="list-group-item file-item " v-for="(file, index) in files" :key="file.fileID" @click="updateIndex(index)" :class="{ actived: selectIndex===index}">
+            <!-- <img class="file-thumbnail" src="/src/assets/thumbnail.png" alt="thumbnail" height="100" width="100"> -->
+            <vue-pdf-embed class="file-thumbnail" :source="`/files/${file.path}`" :page="1"    width="170"/>
+            <!-- <p>{{ file.path }}</p> -->
             <p class="file-title">{{ file.title }}</p>
             <p class="file-course">{{ file.courseName }}</p>
-            <p class="file-author">{{ file.fullName }}</p>
+            <!-- <p class="file-author">{{ file.fullName }}</p> -->
             <div class="control pr-lg-3 pl-lg-3" v-if="isOwner">
-                <button class="btn btn-primary float-left" @click="onEditFile(file.fileID)">Edit</button>
+                <button class="btn btn-primary float-left" >Edit</button>
+                <!-- <button class="btn btn-primary float-left" ><a :href="`/file/${file.fileID}`">Edit</a></button> -->
                 <button class="btn btn-danger float-right" @click="onDeleteFile(file.fileID)">Delete</button>
-            </div>
-        </li>
 
+            </div>
+            <!-- <div v-else class="float-right" @click="onDownload(file.fileID)"><i class="fa-solid fa-floppy-disk fa-xl"></i></div> -->
+            <!-- {{ file.path }} -->
+        </router-link>
     </div>
 </template>
 
@@ -55,16 +64,23 @@ function onEditFile(){
     flex-direction: row;
 }
 .file-item{
-    height: 500px;
+    height: 300px;
     width: 200px;
     border-radius: 10px;
-    border: 2px rgb(191, 181, 181) solid;
+    /* border: 2px rgb(191, 181, 181) solid; */
     display: flex;
     flex-direction: column;
     align-items: space-between;
     position: relative;
     padding: 10px;
     margin: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        justify-content: center;
+    color: rgb(83, 76, 76);
+    cursor: pointer;
+}
+.file-item img{
+    justify-content: center;
 }
 
 .file-item:hover{
@@ -78,8 +94,9 @@ function onEditFile(){
     background-color: rgb(210, 223, 172);
 }
 .file-thumbnail{
-    height: 250px;
-    width: auto;;
+    height: 120px;
+    overflow: hidden;
+    /* width: auto;; */
 }
 .actived{
     background-color: rgb(160, 218, 231);

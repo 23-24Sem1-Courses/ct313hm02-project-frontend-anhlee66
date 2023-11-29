@@ -19,7 +19,7 @@ async function signup(user){
             }
             else{
                 alert(`Create a new user ${user.email}`)
-                $router.push({name:'homepage'})
+                $router.push({name:'loginpage'})
             }
         })
         

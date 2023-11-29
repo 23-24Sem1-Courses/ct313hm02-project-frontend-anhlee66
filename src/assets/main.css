@@ -2,6 +2,59 @@
 #app{
   height: 1vh;
 }
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.header {
+  /* background-color: #f0f0f0; */
+  /* padding: 10px; */
+  height: 70px;
+  text-align: center;
+  width: 100%;
+}
+.footer {
+  /* background-color: #be5d5d; */
+  /* padding: 10px; */
+  text-align: center;
+  width: 100%;
+  margin: 0;
+}
+
+.main-content {
+  display: flex;
+  flex: 1;
+  margin-top:70px;
+  /* height: 690px; */
+}
+
+.aside { 
+  /* background-color: #faf9f9; */
+  /* margin-right: 50px; */
+  /* height:; */
+  width: 300px;
+  height: 100%;
+  border-right:1px rgb(162, 156, 156) solid;
+  padding: 20px;
+  /* position: fixed; */
+}
+
+.section {
+  /* background-color: #d0d0d0; */
+  /* padding: 10px; */
+  flex: 1;
+  /* float: right; */
+  /* position: absolute; */
+  /* right: 20px; */
+  padding: 10px;
+}
+
+.footer {
+  background-color: #c0c0c0;
+  /* padding: 10px; */
+}
 .avatar{
   width: 30px;
   border-radius: 50%;

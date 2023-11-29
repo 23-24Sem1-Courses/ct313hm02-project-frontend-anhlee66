@@ -1,0 +1,106 @@
+
+.profile-card {
+    background-color: #ffffff;
+    /* border-radius: 10px; */
+    /* box-shadow: 0 2px 5px rgba(227, 74, 74, 0.2); */
+    /* width: 100%; */
+    /* Adjust as needed */
+    text-align: center;
+    /* height: ; */
+    padding-left: 0;
+    height: 100%;
+}
+
+.profile-header {
+    /* background-color: #ececec; */
+    /* padding: 10px; */
+}
+
+.profile-image {
+    border-radius: 50%;
+    /* Makes the image round */
+    width: 80px;
+    /* Adjust as needed */
+    height: auto;
+    border: 3px solid white;
+    /* Optional: Adds a border around the image */
+    margin-top: 0px;
+    /* Adjusts the position to be half above the background */
+}
+
+.profile-header h1 {
+    margin: 0;
+    color: #333;
+    font-size: 18px;
+}
+
+.profile-header p {
+    margin: 0;
+    color: #777;
+    font-size: 14px;
+}
+
+.profile-stats {
+    display: flex;
+    justify-content: space-around;
+    /* background-color: #f7f7f7; */
+    padding: 10px;
+}
+
+.stat {
+    text-align: center;
+}
+
+.stat-number {
+    display: block;
+    color: #333;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.stat-description {
+    color: #777;
+    font-size: 14px;
+}
+
+.upload-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 10px ;
+    margin: 20px 0;
+    width: 100%;
+    /* Ensures buttons are of equal width */
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.navigation{
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: left;
+    text-align: left;
+    font-size: large;
+    /* padding-left:30px */
+}
+.nav-item {
+    color:black;
+    margin:10px 0;
+    height: 40px;
+    justify-content: center;
+}
+.nav-item:hover{
+    border-radius: 25px;
+    /* border: 1px solid rgba(47, 47, 253,0.5); */
+    background-color:#00b8ff;
+    padding:0 10px
+}
+.nav-item a{
+    text-decoration: none;
+    color:rgb(84, 81, 81)
+}

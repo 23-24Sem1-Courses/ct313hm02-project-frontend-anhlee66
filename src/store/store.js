@@ -32,6 +32,18 @@ const mutations = {
   registerFailure(state) {
     state.user = null
     state.status = {}
+  },
+  search(state, search) {
+    state.search = search ?? ''
+  },
+  setLike(state, like) {
+    state.like = like
+  },
+  incrementLike(state) {
+    state.like++
+  },
+  decrementLike(state) {
+    state.like--
   }
 }
 export default createStore({

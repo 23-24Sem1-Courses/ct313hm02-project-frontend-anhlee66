@@ -22,7 +22,9 @@ async function login(user){
         else{
             store.commit('loginSuccess', user.email)
             console.log(localStorage.getItem('user'))
-            $router.push({name:'homepage'})
+            // $router.go(0)
+            $router.push({ name: 'homepage' })
+
         }
     }  
     catch(error)
@@ -38,7 +40,7 @@ async function login(user){
         <h2 class="text-center">Welcome to Doc Sharing</h2>
         <UserForm @login:user="login" :user="user" type="login" />
         <p class="text-center ">
-            <a href="/signup">Sign up if you don't have Account</a>
+                <a href="/signup">Sign up if you don't have Account</a>
         </p>
     </div>
 </template>

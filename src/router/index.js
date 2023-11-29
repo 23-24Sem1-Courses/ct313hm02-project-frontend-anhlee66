@@ -8,11 +8,14 @@ import CreateCourse from '@/views/CreateCourse.vue'
 import MyFile from '@/views/MyFile.vue'
 import AccountSetting from '@/views/AccountSetting.vue'
 import FileView from '@/views/FileView.vue'
+import FileEdit from '@/views/FileEdit.vue'
+import SearchFile from '@/views/SearchFile.vue'
 const routes = [
   {
     path: '/',
     name: 'homepage',
     component: HomePage
+    // children: [{}]
   },
   {
     path: '/login',
@@ -50,9 +53,22 @@ const routes = [
     component: AccountSetting
   },
   {
-    path: '/file',
+    path: '/fileview/:id',
     name: 'fileview',
-    component: FileView
+    component: FileView,
+    props: (route) => ({ fileID: route.params.id })
+  },
+  {
+    path: '/file/:id',
+    name: 'editfile',
+    component: FileEdit,
+    props: (route) => ({ fileID: route.params.id })
+  },
+  {
+    path: '/search',
+    name: 'search',
+    component: SearchFile,
+    props: (route) => ({ searchText: route.query.q })
   }
 ]
 
